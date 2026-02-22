@@ -32,13 +32,25 @@ The design is partitioned into specialized modules that interact to form the com
 * **Instruction Register (IR):** A 16-bit register that holds the current instruction word during the decode and execute phases.
 * **Instruction Memory:** A memory block modeled as 16-bit words, used to store the machine code program executed during simulation.
 
-## Instruction Set Architecture (ISA)
-The CPU supports a variety of instruction types for data processing and flow control:
-* **Data Transfer**: `LDI` (Load Immediate).
-* **Arithmetic**: `ADD`, `SUB`, `MUL`, `DIV`.
-* **Logic**: `AND`, `OR`, `XOR`, `NOT`.
-* **Shifts/Rotates**: `LSL`, `LSR`, `ROL`, `ROR`.
-* **Control Flow**: `JMP` (Unconditional Branching).
+## Instruction Set Architecture (ISA) & OpCodes
+
+The Control Unit (CU) decodes the upper 4 bits of the 16-bit instruction word (`inst[15:12]`) to drive the ALU and Datapath.
+
+| OpCode | Instruction | Operation |
+| :--- | :--- | :--- |
+| **0x0** | ADD | A + B (via FUA) |
+| **0x1** | SUB | A - B (via FUA) |
+| **0x2** | MUL | A * B |
+| **0x3** | DIV | A / B (Returns 0xFF if B=0) |
+| **0x4** | AND | A & B |
+| **0x5** | OR | A | B |
+| **0x6** | XOR | A ^ B |
+| **0x7** | LSL | Logical Shift Left |
+| **0x8** | LSR | Logical Shift Right |
+| **0x9** | ROL | Rotate Left |
+| **0xA** | ROR | Rotate Right |
+| **0xB** | JMP | PC = Immediate (8-bit) |
+| **0xC** | LDI | Reg = Immediate (8-bit) |
 
 ## Simulation & Analysis
 The design was verified using **Xilinx Vivado** with a custom testbench to validate instruction timing and datapath integrity.
@@ -50,3 +62,4 @@ The design was verified using **Xilinx Vivado** with a custom testbench to valid
 * `/rtl`: Contains all Verilog source files (CPU top, ALU, Control Unit, etc.).
 * `/sim`: Contains the testbench (`cpu_tb.v`) and simulation waveform configurations.
 * `/docs`: Contains the technical project report and architectural diagrams.
+
