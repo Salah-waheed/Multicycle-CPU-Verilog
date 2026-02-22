@@ -1,0 +1,20 @@
+# Vivado junk files
+*.jou
+*.log
+*.str
+*.backup
+*.ppts
+*.txt
+.Xil/
+vivado*.zip
+vivado*.backup.*
+
+# Simulation results
+xsim.dir/
+*.pb
+*.wdb
+*.vcd
+
+# Folder-specific ignores
+/sim/xsim.dir/
+/sim/.Xil/
