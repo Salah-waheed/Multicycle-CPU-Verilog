@@ -19,14 +19,18 @@ The CPU is designed for computational efficiency with a clear separation between
 
 
 
-## Hardware Architecture
-The design is broken down into several modular Verilog components:
+## Hardware Architecture & Modules
+The design is partitioned into specialized modules that interact to form the complete processor:
 
-* **Control Unit (CU)**: Manages the FSM stages and generates control signals based on the OpCode.
-* **ALU & Full Adder (FUA)**: Optimized to perform 8-bit addition, subtraction, and logical operations.
-* **Register File (REG)**: Supports 16 internal registers with asynchronous reads and synchronous writes.
-* **Status Register**: Tracks condition flags including **Carry (C)**, **Zero (Z)**, **Negative (N)**, and **Overflow (V)**.
-* **Instruction Memory**: Stores 16-bit instructions used for simulation and verification.
+* **CPU (Top Module):** The top-level entity that instantiates and interconnects the control unit and all datapath components to form the functional processor.
+* **Control Unit (CU):** The core intelligence that implements the 3-stage FSM to manage instruction flow, handle jumps, and generate precise control signals for the rest of the system.
+* **Arithmetic Logic Unit (ALU):** Responsible for logical operations (`AND`, `OR`, `XOR`, `NOT`) and bitwise manipulation through shifts and rotates (`LSL`, `LSR`, `ROL`, `ROR`).
+* **Full Adder Unit (FUA):** A dedicated arithmetic block optimized to perform both addition and subtraction using two’s complement logic within a single unit.
+* **Register File (REG):** A storage bank containing 16 general-purpose 8-bit registers. It supports two asynchronous read ports for operands and one synchronous write port for results.
+* **Status Register:** A monitoring module that tracks condition flags after execution: **Carry (C)**, **Overflow (V)**, **Negative (N)**, and **Zero (Z)**.
+* **Program Counter (PC):** An 8-bit register that tracks the memory address of the next instruction to be fetched.
+* **Instruction Register (IR):** A 16-bit register that holds the current instruction word during the decode and execute phases.
+* **Instruction Memory:** A memory block modeled as 16-bit words, used to store the machine code program executed during simulation.
 
 ## Instruction Set Architecture (ISA)
 The CPU supports a variety of instruction types for data processing and flow control:
