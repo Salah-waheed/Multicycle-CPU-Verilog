@@ -17,7 +17,8 @@ The CPU is designed for computational efficiency with a clear separation between
 | **Control Unit** | Finite State Machine (FSM) |
 | **ALU Operations** | Arithmetic, Logic, and Shift/Rotate |
 
-
+## Architecture Diagram
+![alt text](<Screenshot (211).png>)
 
 ## Hardware Architecture & Modules
 The design is partitioned into specialized modules that interact to form the complete processor:
